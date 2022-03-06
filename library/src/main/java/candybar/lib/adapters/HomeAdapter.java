@@ -57,6 +57,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.List;
 
 import candybar.lib.R;
@@ -325,6 +326,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             iconRequestViewHolder.themedApps.setText(mContext.getResources().getString(
                     R.string.home_icon_request_themed_apps, themed));
 
+            CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                    "stats",
+                    new HashMap<String, String>() {{
+                        put("section", "home");
+                        put("installed", String.valueOf(installed));
+                        put("missed", String.valueOf(missed));
+                        put("themed", String.valueOf(themed));
+                    }}
+            );
+
             iconRequestViewHolder.progress.setMax(installed);
             iconRequestViewHolder.progress.setProgress(themed);
         } else if (holder.getItemViewType() == TYPE_WALLPAPERS) {
@@ -446,11 +457,27 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View view) {
             int id = view.getId();
             if (id == R.id.rate) {
+                CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                        "click",
+                        new HashMap<String, String>() {{
+                            put("section", "home");
+                            put("action", "open_dialog");
+                            put("item", "rate_and_review");
+                        }}
+                );
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mContext.getResources().getString(R.string.rate_and_review_link)
                         .replaceAll("\\{\\{packageName\\}\\}", mContext.getPackageName())));
                 intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 mContext.startActivity(intent);
             } else if (id == R.id.share) {
+                CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                        "click",
+                        new HashMap<String, String>() {{
+                            put("section", "home");
+                            put("action", "open_dialog");
+                            put("item", "share");
+                        }}
+                );
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(
@@ -463,6 +490,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 mContext.startActivity(Intent.createChooser(intent,
                         mContext.getResources().getString(R.string.app_client)));
             } else if (id == R.id.update) {
+                CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                        "click",
+                        new HashMap<String, String>() {{
+                            put("section", "home");
+                            put("action", "open_dialog");
+                            put("item", "update");
+                        }}
+                );
                 new UpdateChecker().execute();
             }
         }
@@ -649,9 +684,25 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 switch (mHomes.get(position).getType()) {
                     case APPLY:
+                        CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                                "click",
+                                new HashMap<String, String>() {{
+                                    put("section", "home");
+                                    put("action", "navigate");
+                                    put("item", "icon_apply");
+                                }}
+                        );
                         ((CandyBarMainActivity) mContext).selectPosition(1);
                         break;
                     case DONATE:
+                        CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                                "click",
+                                new HashMap<String, String>() {{
+                                    put("section", "home");
+                                    put("action", "open_dialog");
+                                    put("item", "donate");
+                                }}
+                        );
                         if (mContext instanceof CandyBarMainActivity) {
                             if (CandyBarApplication.getConfiguration().getDonationLinks() != null) {
                                 DonationLinksFragment.showDonationLinksDialog(((AppCompatActivity) mContext).getSupportFragmentManager());
@@ -663,6 +714,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         }
                         break;
                     case ICONS:
+                        CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                                "click",
+                                new HashMap<String, String>() {{
+                                    put("section", "home");
+                                    put("action", "navigate");
+                                    put("item", "icons");
+                                }}
+                        );
                         ((CandyBarMainActivity) mContext).selectPosition(2);
                         break;
                     case DIMENSION:
@@ -740,6 +799,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View view) {
             int id = view.getId();
             if (id == R.id.container) {
+                CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                        "click",
+                        new HashMap<String, String>() {{
+                            put("section", "home");
+                            put("action", "navigate");
+                            put("item", "icon_request");
+                        }}
+                );
                 ((CandyBarMainActivity) mContext).selectPosition(3);
             }
         }
@@ -857,6 +924,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View view) {
             int id = view.getId();
             if (id == R.id.container) {
+                CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                        "click",
+                        new HashMap<String, String>() {{
+                            put("section", "home");
+                            put("action", "open_dialog");
+                            put("item", "other_apps");
+                        }}
+                );
                 if (CandyBarApplication.getConfiguration().getOtherApps() != null) {
                     OtherAppsFragment.showOtherAppsDialog(((AppCompatActivity) mContext).getSupportFragmentManager());
                     return;

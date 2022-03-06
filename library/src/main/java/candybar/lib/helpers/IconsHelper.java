@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import candybar.lib.R;
@@ -169,6 +170,14 @@ public class IconsHelper {
     }
 
     public static void selectIcon(@NonNull Context context, int action, Icon icon) {
+        CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                "click",
+                new HashMap<String, String>() {{
+                    put("section", "icons");
+                    put("action", "pick_icon");
+                    put("item", icon.getDrawableName());
+                }}
+        );
         if (action == IntentHelper.ICON_PICKER) {
             Glide.with(context)
                     .asBitmap()

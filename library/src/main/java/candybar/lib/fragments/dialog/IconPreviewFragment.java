@@ -23,9 +23,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.danimahardhika.android.helpers.core.ColorHelper;
 import com.danimahardhika.android.helpers.core.DrawableHelper;
 
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import candybar.lib.R;
+import candybar.lib.applications.CandyBarApplication;
 import candybar.lib.databases.Database;
 import candybar.lib.fragments.IconsFragment;
 import candybar.lib.helpers.TypefaceHelper;
@@ -124,6 +126,15 @@ public class IconPreviewFragment extends DialogFragment {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(icon);
 
+        CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                "click",
+                new HashMap<String, String>() {{
+                    put("section", "icon_preview");
+                    put("action", "open_dialog");
+                    put("item", mDrawableName);
+                }}
+        );
+
         if (mDrawableName == null) {
             bookmark.setVisibility(View.INVISIBLE);
         } else {
@@ -148,8 +159,24 @@ public class IconPreviewFragment extends DialogFragment {
 
             bookmark.setOnClickListener(view -> {
                 if (isBookmarked.get()) {
+                    CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                            "click",
+                            new HashMap<String, String>() {{
+                                put("section", "icon_preview");
+                                put("action", "delete_bookmark");
+                                put("item", mDrawableName);
+                            }}
+                    );
                     Database.get(requireActivity()).deleteBookmarkedIcon(mDrawableName);
                 } else {
+                    CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                            "click",
+                            new HashMap<String, String>() {{
+                                put("section", "icon_preview");
+                                put("action", "add_bookmark");
+                                put("item", mDrawableName);
+                            }}
+                    );
                     Database.get(requireActivity()).addBookmarkedIcon(mDrawableName, mIconTitle);
                 }
                 isBookmarked.set(!isBookmarked.get());

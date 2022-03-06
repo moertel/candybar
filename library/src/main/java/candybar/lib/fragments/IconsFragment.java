@@ -21,11 +21,13 @@ import com.pluscubed.recyclerfastscroll.RecyclerFastScroller;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import candybar.lib.R;
 import candybar.lib.activities.CandyBarMainActivity;
 import candybar.lib.adapters.IconsAdapter;
+import candybar.lib.applications.CandyBarApplication;
 import candybar.lib.databases.Database;
 import candybar.lib.items.Icon;
 
@@ -102,6 +104,11 @@ public class IconsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
+                "view",
+                new HashMap<String, String>() {{ put("section", "icons"); }}
+        );
 
         setupViewVisibility();
 
