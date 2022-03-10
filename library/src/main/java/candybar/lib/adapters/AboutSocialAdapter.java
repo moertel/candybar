@@ -100,7 +100,7 @@ public class AboutSocialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "click",
-                    new HashMap<String, String>() {{
+                    new HashMap<String, Object>() {{
                         put("section", "about");
                         put("action", "open_social");
                         put("url", mUrls[position]);

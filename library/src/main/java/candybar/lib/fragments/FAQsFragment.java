@@ -89,7 +89,7 @@ public class FAQsFragment extends Fragment {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, String>() {{ put("section", "faq"); }}
+                new HashMap<String, Object>() {{ put("section", "faq"); }}
         );
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

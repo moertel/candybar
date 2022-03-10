@@ -107,7 +107,7 @@ public class IconsFragment extends Fragment {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, String>() {{ put("section", "icons"); }}
+                new HashMap<String, Object>() {{ put("section", "icons"); }}
         );
 
         setupViewVisibility();

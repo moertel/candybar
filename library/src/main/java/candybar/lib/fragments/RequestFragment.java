@@ -131,7 +131,7 @@ public class RequestFragment extends Fragment implements View.OnClickListener {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, String>() {{ put("section", "icon_request"); }}
+                new HashMap<String, Object>() {{ put("section", "icon_request"); }}
         );
 
         setHasOptionsMenu(false);

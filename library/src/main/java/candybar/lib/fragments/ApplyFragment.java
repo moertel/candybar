@@ -74,7 +74,7 @@ public class ApplyFragment extends Fragment {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, String>() {{ put("section", "icon_apply"); }}
+                new HashMap<String, Object>() {{ put("section", "icon_apply"); }}
         );
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

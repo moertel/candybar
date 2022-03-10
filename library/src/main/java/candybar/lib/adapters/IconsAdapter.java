@@ -373,23 +373,23 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
         if (mIcons.size() == 0) {
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "click",
-                    new HashMap<String, String>() {{
+                    new HashMap<String, Object>() {{
                         put("section", "icons");
                         put("action", "search");
                         put("item", query);
                         put("found", "no");
-                        put("number_of_icons", String.valueOf(mIcons.size()));
+                        put("number_of_icons", mIcons.size());
                     }}
             );
         } else {
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "click",
-                    new HashMap<String, String>() {{
+                    new HashMap<String, Object>() {{
                         put("section", "icons");
                         put("action", "search");
                         put("item", query);
                         put("found", "yes");
-                        put("number_of_icons", String.valueOf(mIcons.size()));
+                        put("number_of_icons", mIcons.size());
                     }}
             );
         }

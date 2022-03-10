@@ -172,7 +172,7 @@ public class IconsHelper {
     public static void selectIcon(@NonNull Context context, int action, Icon icon) {
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "click",
-                new HashMap<String, String>() {{
+                new HashMap<String, Object>() {{
                     put("section", "icons");
                     put("action", "pick_icon");
                     put("item", icon.getDrawableName());

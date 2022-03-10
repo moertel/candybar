@@ -328,11 +328,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "stats",
-                    new HashMap<String, String>() {{
+                    new HashMap<String, Object>() {{
                         put("section", "home");
-                        put("installed", String.valueOf(installed));
-                        put("missed", String.valueOf(missed));
-                        put("themed", String.valueOf(themed));
+                        put("installed", installed);
+                        put("missed", missed);
+                        put("themed", themed);
                     }}
             );
 
@@ -459,7 +459,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (id == R.id.rate) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "rate_and_review");
@@ -472,7 +472,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == R.id.share) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "share");
@@ -492,7 +492,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == R.id.update) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "update");
@@ -686,7 +686,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     case APPLY:
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, String>() {{
+                                new HashMap<String, Object>() {{
                                     put("section", "home");
                                     put("action", "navigate");
                                     put("item", "icon_apply");
@@ -697,7 +697,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     case DONATE:
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, String>() {{
+                                new HashMap<String, Object>() {{
                                     put("section", "home");
                                     put("action", "open_dialog");
                                     put("item", "donate");
@@ -716,7 +716,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     case ICONS:
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, String>() {{
+                                new HashMap<String, Object>() {{
                                     put("section", "home");
                                     put("action", "navigate");
                                     put("item", "icons");
@@ -801,7 +801,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (id == R.id.container) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "home");
                             put("action", "navigate");
                             put("item", "icon_request");
@@ -926,7 +926,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (id == R.id.container) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "other_apps");

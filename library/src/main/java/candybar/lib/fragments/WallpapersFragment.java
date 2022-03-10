@@ -109,7 +109,7 @@ public class WallpapersFragment extends Fragment {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, String>() {{ put("section", "wallpapers"); }}
+                new HashMap<String, Object>() {{ put("section", "wallpapers"); }}
         );
 
         ViewCompat.setNestedScrollingEnabled(mRecyclerView, false);

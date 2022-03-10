@@ -94,7 +94,7 @@ public class PresetsFragment extends Fragment {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, String>() {{ put("section", "presets"); }}
+                new HashMap<String, Object>() {{ put("section", "presets"); }}
         );
 
         ViewCompat.setNestedScrollingEnabled(mRecyclerView, false);

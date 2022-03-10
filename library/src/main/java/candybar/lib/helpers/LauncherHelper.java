@@ -139,7 +139,7 @@ public class LauncherHelper {
     public static void apply(@NonNull Context context, String packageName, String launcherName) {
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "click",
-                new HashMap<String, String>() {{
+                new HashMap<String, Object>() {{
                     put("section", "apply");
                     put("action", "open_dialog");
                     put("launcher", packageName);
@@ -168,7 +168,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -188,7 +188,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -207,7 +207,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -226,7 +226,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -245,7 +245,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -264,7 +264,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -286,7 +286,7 @@ public class LauncherHelper {
                     context.startActivity(cmtheme);
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -315,7 +315,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -338,7 +338,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -370,7 +370,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -392,7 +392,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -416,7 +416,7 @@ public class LauncherHelper {
                     context.startActivity(niagara);
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -441,7 +441,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -462,7 +462,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -488,7 +488,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -507,7 +507,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -531,7 +531,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -549,7 +549,7 @@ public class LauncherHelper {
                     context.startActivity(square);
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -567,7 +567,7 @@ public class LauncherHelper {
                     context.startActivity(omega);
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -593,7 +593,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -619,7 +619,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -640,7 +640,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -669,7 +669,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -698,7 +698,7 @@ public class LauncherHelper {
                     ((AppCompatActivity) context).finish();
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "confirm");
                                 put("launcher", launcherPackage);
@@ -724,7 +724,7 @@ public class LauncherHelper {
                     .onPositive((dialog, which) -> {
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, String>() {{
+                                new HashMap<String, Object>() {{
                                     put("section", "apply");
                                     put("action", "manual_open_confirm");
                                     put("launcher", launcherPackage);
@@ -750,7 +750,7 @@ public class LauncherHelper {
                     .onNegative(((dialog, which) -> {
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, String>() {{
+                                new HashMap<String, Object>() {{
                                     put("section", "apply");
                                     put("action", "manual_open_cancel");
                                     put("launcher", launcherPackage);
@@ -793,7 +793,7 @@ public class LauncherHelper {
                         ((AppCompatActivity) context).finish();
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, String>() {{
+                                new HashMap<String, Object>() {{
                                     put("section", "apply");
                                     put("action", "manual_open_confirm");
                                     put("launcher", launcherPackage);
@@ -807,7 +807,7 @@ public class LauncherHelper {
                 .onNegative(((dialog, which) -> {
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "manual_open_cancel");
                                 put("launcher", launcherPackage);
@@ -826,7 +826,7 @@ public class LauncherHelper {
                 .onPositive((dialog, which) -> {
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "incompatible_third_party_open");
                                 put("launcher", launcherName);
@@ -844,7 +844,7 @@ public class LauncherHelper {
                 .onNegative(((dialog, which) -> {
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "incompatible_third_party_cancel");
                                 put("launcher", launcherName);
@@ -872,7 +872,7 @@ public class LauncherHelper {
                 .onPositive((dialog, which) -> {
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "not_installed_google_play_open");
                                 put("launcher", packageName);
@@ -891,7 +891,7 @@ public class LauncherHelper {
                 .onNegative(((dialog, which) -> {
                     CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                             "click",
-                            new HashMap<String, String>() {{
+                            new HashMap<String, Object>() {{
                                 put("section", "apply");
                                 put("action", "not_installed_google_play_cancel");
                                 put("launcher", packageName);

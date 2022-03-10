@@ -12,10 +12,10 @@ import com.danimahardhika.android.helpers.core.utils.LogUtil;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import candybar.lib.R;
 import candybar.lib.activities.CandyBarCrashReport;
@@ -127,7 +127,7 @@ public abstract class CandyBarApplication extends MultiDexApplication {
         }
 
         public interface AnalyticsHandler {
-            void logEvent(String eventName, Map<String, String> params);
+            void logEvent(String eventName, HashMap<String, Object> params);
         }
 
         private EmailBodyGenerator mEmailBodyGenerator;
@@ -335,7 +335,7 @@ public abstract class CandyBarApplication extends MultiDexApplication {
             if (analyticsHandler == null) {
                 analyticsHandler = new AnalyticsHandler() {
                     @Override
-                    public void logEvent(String eventName, Map<String, String> params) {
+                    public void logEvent(String eventName, HashMap<String, Object> params) {
                         StringBuilder sb = new StringBuilder();
                         for (Map.Entry<String, String> entry : params.entrySet()) {
                             sb.append(" ");

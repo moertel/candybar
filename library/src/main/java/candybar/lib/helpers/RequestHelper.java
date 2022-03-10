@@ -222,11 +222,11 @@ public class RequestHelper {
     public static String sendArcticRequest(List<Request> requests, List<String> iconFiles, File directory, String apiKey) {
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "click",
-                new HashMap<String, String>() {{
+                new HashMap<String, Object>() {{
                     put("section", "icon_request");
                     put("action", "submit");
                     put("item", "arctic");
-                    put("number_of_icons", String.valueOf(requests.size()));
+                    put("number_of_icons", requests.size());
                 }}
         );
         okhttp3.RequestBody okRequestBody = new okhttp3.MultipartBody.Builder()
@@ -315,12 +315,12 @@ public class RequestHelper {
     public static String sendCustomRequest(List<Request> requests, boolean isPremium) {
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "click",
-                new HashMap<String, String>() {{
+                new HashMap<String, Object>() {{
                     put("section", "icon_request");
                     put("action", "submit");
                     put("item", "custom");
                     put("type", isPremium ? "premium" : "regular");
-                    put("number_of_icons", String.valueOf(requests.size()));
+                    put("number_of_icons", requests.size());
                 }}
         );
         String errorMessage;

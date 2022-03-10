@@ -336,7 +336,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.contributors_title) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "contributors");
@@ -347,7 +347,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else if (id == R.id.privacy_policy_title) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "privacy_policy");
@@ -359,7 +359,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else if (id == R.id.terms_title) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "terms_and_conditions");
@@ -434,7 +434,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_licenses) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "licenses");
@@ -447,7 +447,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_contributors) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "contributors");
@@ -461,7 +461,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_translator) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "translators");
@@ -476,7 +476,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_github) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, String>() {{
+                        new HashMap<String, Object>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "github");
