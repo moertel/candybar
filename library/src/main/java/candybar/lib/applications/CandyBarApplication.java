@@ -337,7 +337,7 @@ public abstract class CandyBarApplication extends MultiDexApplication {
                     @Override
                     public void logEvent(String eventName, HashMap<String, Object> params) {
                         StringBuilder sb = new StringBuilder();
-                        for (Map.Entry<String, String> entry : params.entrySet()) {
+                        for (Map.Entry<String, Object> entry : params.entrySet()) {
                             sb.append(" ");
                             sb.append(entry.getKey());
                             sb.append("=");
