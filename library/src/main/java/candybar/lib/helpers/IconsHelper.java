@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
@@ -35,6 +39,7 @@ import candybar.lib.activities.CandyBarMainActivity;
 import candybar.lib.applications.CandyBarApplication;
 import candybar.lib.fragments.dialog.IconPreviewFragment;
 import candybar.lib.items.Icon;
+import candybar.lib.preferences.Preferences;
 
 import static candybar.lib.helpers.DrawableHelper.getRightIcon;
 import static com.danimahardhika.android.helpers.core.DrawableHelper.getResourceId;
@@ -186,9 +191,16 @@ public class IconsHelper {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .listener(new RequestListener<Bitmap>() {
                         public void handleResult(Bitmap resource) {
+                            Paint paint = new Paint();
+                            int currentColor = Preferences.get(context).getIconAppearanceColor();
+                            paint.setColorFilter(new PorterDuffColorFilter(currentColor, PorterDuff.Mode.SRC_IN));
+                            Bitmap bitmap2 = Bitmap.createBitmap(resource.getWidth(), resource.getHeight(), Bitmap.Config.ARGB_8888);
+                            Canvas canvas = new Canvas(bitmap2);
+                            canvas.drawBitmap(resource, 0, 0, paint);
+
                             Intent intent = new Intent();
-                            intent.putExtra("icon", resource);
-                            ((AppCompatActivity) context).setResult(resource != null ?
+                            intent.putExtra("icon", bitmap2);
+                            ((AppCompatActivity) context).setResult(bitmap2 != null ?
                                     Activity.RESULT_OK : Activity.RESULT_CANCELED, intent);
                             ((AppCompatActivity) context).finish();
                         }
@@ -221,6 +233,12 @@ public class IconsHelper {
                                 FileOutputStream outStream;
                                 try {
                                     outStream = new FileOutputStream(file);
+                                    Paint paint = new Paint();
+                                    int currentColor = Preferences.get(context).getIconAppearanceColor();
+                                    paint.setColorFilter(new PorterDuffColorFilter(currentColor, PorterDuff.Mode.SRC_IN));
+                                    Bitmap bitmap2 = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+                                    Canvas canvas = new Canvas(bitmap2);
+                                    canvas.drawBitmap(bitmap, 0, 0, paint);
                                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
                                     outStream.flush();
                                     outStream.close();
