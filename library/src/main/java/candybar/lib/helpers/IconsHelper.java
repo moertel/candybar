@@ -193,7 +193,8 @@ public class IconsHelper {
                         public void handleResult(Bitmap resource) {
                             Paint paint = new Paint();
                             int currentColor = Preferences.get(context).getIconAppearanceColor();
-                            paint.setColorFilter(new PorterDuffColorFilter(currentColor, PorterDuff.Mode.SRC_IN));
+                            paint.setColor(currentColor);
+                            //paint.setColorFilter(new PorterDuffColorFilter(currentColor, PorterDuff.Mode.SRC_IN));
                             Bitmap bitmap2 = Bitmap.createBitmap(resource.getWidth(), resource.getHeight(), Bitmap.Config.ARGB_8888);
                             Canvas canvas = new Canvas(bitmap2);
                             canvas.drawBitmap(resource, 0, 0, paint);
@@ -235,7 +236,8 @@ public class IconsHelper {
                                     outStream = new FileOutputStream(file);
                                     Paint paint = new Paint();
                                     int currentColor = Preferences.get(context).getIconAppearanceColor();
-                                    paint.setColorFilter(new PorterDuffColorFilter(currentColor, PorterDuff.Mode.SRC_IN));
+                                    paint.setColor(currentColor);
+                                    //paint.setColorFilter(new PorterDuffColorFilter(currentColor, PorterDuff.Mode.SRC_IN));
                                     Bitmap bitmap2 = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
                                     Canvas canvas = new Canvas(bitmap2);
                                     canvas.drawBitmap(bitmap, 0, 0, paint);
