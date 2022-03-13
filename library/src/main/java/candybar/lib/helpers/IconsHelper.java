@@ -239,7 +239,7 @@ public class IconsHelper {
                                     Bitmap bitmap2 = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
                                     Canvas canvas = new Canvas(bitmap2);
                                     canvas.drawBitmap(bitmap, 0, 0, paint);
-                                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+                                    bitmap2.compress(Bitmap.CompressFormat.PNG, 100, outStream);
                                     outStream.flush();
                                     outStream.close();
 
