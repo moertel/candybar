@@ -3,6 +3,7 @@ package candybar.lib.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -47,6 +48,7 @@ public class Preferences {
     private static final String KEY_FIRST_RUN = "first_run";
     private static final String KEY_THEME = "theme";
     private static final String KEY_ICON_SHAPE = "icon_shape";
+    private static final String KEY_ICON_APPEARANCE_COLOR = "icon_appearance_color";
     private static final String KEY_APP_VERSION = "app_version";
     private static final String KEY_WIFI_ONLY = "wifi_only";
     private static final String KEY_WALLS_DIRECTORY = "wallpaper_directory";
@@ -112,6 +114,14 @@ public class Preferences {
 
     public int getIconShape() {
         return getSharedPreferences().getInt(KEY_ICON_SHAPE, -1); // -1 is System default
+    }
+
+    public void setIconAppearanceColor(int color) {
+        getSharedPreferences().edit().putInt(KEY_ICON_APPEARANCE_COLOR, color).apply();
+    }
+
+    public int getIconAppearanceColor() {
+        return getSharedPreferences().getInt(KEY_ICON_APPEARANCE_COLOR, Color.WHITE);
     }
 
     public boolean isTimeToShowHomeIntro() {

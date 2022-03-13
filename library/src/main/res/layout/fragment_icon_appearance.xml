@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/iconSettings"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/content_margin"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iconSettingsPreviewImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/clock_bg" />
+
+    <TextView
+        android:id="@+id/iconSettingsHueTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_padding"
+        android:text="Hue" />
+
+    <codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar
+        android:id="@+id/iconSettingsHueSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:hslColoringMode="pure"
+        app:hslMode="hue" />
+
+    <TextView
+        android:id="@+id/iconSettingsSaturationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_padding"
+        android:text="Saturation" />
+
+    <codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar
+        android:id="@+id/iconSettingsSaturationSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:hslColoringMode="pure"
+        app:hslMode="saturation" />
+
+    <TextView
+        android:id="@+id/iconSettingsHueTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_padding"
+        android:text="Lightness" />
+
+    <codes.side.andcolorpicker.hsl.HSLColorPickerSeekBar
+        android:id="@+id/iconSettingsLightnessSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:hslColoringMode="pure"
+        app:hslMode="lightness" />
+
+    <TextView
+        android:id="@+id/iconSettingsOpacityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_padding"
+        android:text="Opacity" />
+
+    <codes.side.andcolorpicker.alpha.HSLAlphaColorPickerSeekBar
+        android:id="@+id/iconSettingsOpacitySeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" />
+</LinearLayout>

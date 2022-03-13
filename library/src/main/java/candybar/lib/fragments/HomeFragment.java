@@ -171,6 +171,12 @@ public class HomeFragment extends Fragment implements HomeListener {
         }
 
         homes.add(new Home(
+                R.drawable.ic_drawer_settings,
+                "Icon Appearance",
+                "Change icon colour and opacity",
+                Home.Type.ICON_APPEARANCE, false));
+
+        homes.add(new Home(
                 -1,
                 CandyBarApplication.getConfiguration().isAutomaticIconsCountEnabled() ?
                         String.valueOf(CandyBarMainActivity.sIconsCount) :

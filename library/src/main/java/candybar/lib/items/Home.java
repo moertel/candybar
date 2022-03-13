@@ -72,7 +72,8 @@ public class Home {
         APPLY,
         DONATE,
         ICONS,
-        DIMENSION
+        DIMENSION,
+        ICON_APPEARANCE
     }
 
     public static class Style {

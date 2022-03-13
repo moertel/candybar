@@ -66,6 +66,7 @@ import candybar.lib.adapters.dialog.ChangelogAdapter;
 import candybar.lib.applications.CandyBarApplication;
 import candybar.lib.fragments.dialog.DonationLinksFragment;
 import candybar.lib.fragments.dialog.IconPreviewFragment;
+import candybar.lib.fragments.dialog.IconAppearanceFragment;
 import candybar.lib.fragments.dialog.OtherAppsFragment;
 import candybar.lib.helpers.TypefaceHelper;
 import candybar.lib.helpers.ViewHelper;
@@ -729,6 +730,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         IconPreviewFragment.showIconPreview(
                                 ((AppCompatActivity) mContext).getSupportFragmentManager(),
                                 home.getTitle(), home.getIcon(), null);
+                        break;
+                    case ICON_APPEARANCE:
+                        IconAppearanceFragment.showIconAppearance(((AppCompatActivity) mContext).getSupportFragmentManager());
                         break;
                 }
             }

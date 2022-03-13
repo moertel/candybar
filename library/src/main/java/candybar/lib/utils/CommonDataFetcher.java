@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -76,6 +77,8 @@ public class CommonDataFetcher implements DataFetcher<Bitmap> {
         String drawableIdStr = uri.replaceFirst("drawable://", "");
         int drawableId = Integer.parseInt(drawableIdStr);
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
+        int currentColor = Preferences.get(mContext).getIconAppearanceColor();
+        drawable.setColorFilter(currentColor, PorterDuff.Mode.SRC_IN);
 
         if (drawable instanceof BitmapDrawable) return ((BitmapDrawable) drawable).getBitmap();
 
