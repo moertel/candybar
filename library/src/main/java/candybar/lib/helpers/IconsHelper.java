@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import candybar.lib.R;
@@ -66,6 +67,7 @@ public class IconsHelper {
         String sectionTitle = "";
         List<Icon> icons = new ArrayList<>();
         List<Icon> sections = new ArrayList<>();
+        HashSet<String> drawables = new HashSet<>();
 
         int count = 0;
         while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -85,6 +87,7 @@ public class IconsHelper {
                     String customName = parser.getAttributeValue(null, "name");
                     int id = getResourceId(context, drawableName);
                     if (id > 0) {
+                        drawables.add(drawableName);
                         icons.add(new Icon(drawableName, customName, id));
                     }
                 }
@@ -96,7 +99,11 @@ public class IconsHelper {
         CandyBarMainActivity.sIconsCount = count;
         if (!CandyBarApplication.getConfiguration().isAutomaticIconsCountEnabled() &&
                 CandyBarApplication.getConfiguration().getCustomIconsCount() == 0) {
-            CandyBarApplication.getConfiguration().setCustomIconsCount(count);
+            if (CandyBarApplication.getConfiguration().isAutomaticIconsCountUnique()) {
+                CandyBarApplication.getConfiguration().setCustomIconsCount(drawables.size());
+            } else {
+                CandyBarApplication.getConfiguration().setCustomIconsCount(count);
+            }
         }
         if (icons.size() > 0) {
             sections.add(new Icon(sectionTitle, icons));

@@ -137,6 +137,7 @@ public abstract class CandyBarApplication extends MultiDexApplication {
         private boolean mIsHighQualityPreviewEnabled = false;
         private boolean mIsColoredApplyCard = true;
         private boolean mIsAutomaticIconsCountEnabled = true;
+        private boolean mIsAutomaticIconsCountUnique = false;
         private int mCustomIconsCount = 0;
         private boolean mIsShowTabIconsCount = false;
         private boolean mIsShowTabAllIcons = false;
@@ -177,6 +178,11 @@ public abstract class CandyBarApplication extends MultiDexApplication {
 
         public Configuration setAutomaticIconsCountEnabled(boolean automaticIconsCountEnabled) {
             mIsAutomaticIconsCountEnabled = automaticIconsCountEnabled;
+            return this;
+        }
+
+        public Configuration setIsAutomaticIconsCountUnique(boolean automaticIconsCountUnique) {
+            mIsAutomaticIconsCountUnique = automaticIconsCountUnique;
             return this;
         }
 
@@ -347,6 +353,10 @@ public abstract class CandyBarApplication extends MultiDexApplication {
 
         public boolean isAutomaticIconsCountEnabled() {
             return mIsAutomaticIconsCountEnabled;
+        }
+
+        public boolean isAutomaticIconsCountUnique() {
+            return mIsAutomaticIconsCountUnique;
         }
 
         public int getCustomIconsCount() {
