@@ -34,6 +34,7 @@ public class IntentHelper {
     private static final String ACTION_ADW_PICK_ICON = "org.adw.launcher.icons.ACTION_PICK_ICON";
     private static final String ACTION_TURBO_PICK_ICON = "com.phonemetra.turbo.launcher.icons.ACTION_PICK_ICON";
     private static final String ACTION_LAWNCHAIR_ICONPACK = "ch.deletescape.lawnchair.ICONPACK";
+    private static final String ACTION_LAWNCHAIR_THEMED_ICON = "app.lawnchair.icons.THEMED_ICON";
     private static final String ACTION_NOVA_LAUNCHER = "com.novalauncher.THEME";
     private static final String ACTION_ONEPLUS_PICK_ICON = "net.oneplus.launcher.icons.ACTION_PICK_ICON";
     private static final String ACTION_PLUS_HOME = "jp.co.a_tm.android.launcher.icons.ACTION_PICK_ICON";
@@ -46,6 +47,7 @@ public class IntentHelper {
                 case ACTION_ADW_PICK_ICON:
                 case ACTION_TURBO_PICK_ICON:
                 case ACTION_LAWNCHAIR_ICONPACK:
+                case ACTION_LAWNCHAIR_THEMED_ICON:
                 case ACTION_NOVA_LAUNCHER:
                 case ACTION_ONEPLUS_PICK_ICON:
                 case ACTION_PLUS_HOME:
