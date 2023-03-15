@@ -1,5 +1,6 @@
 package candybar.lib.applications;
 
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.IntRange;
@@ -132,11 +133,18 @@ public abstract class CandyBarApplication extends MultiDexApplication {
             void logException(Exception exception);
         }
 
+        public interface ConfigHandler {
+            String wallpaperJson(Context context);
+            String configJson(Context context);
+        }
+
         private EmailBodyGenerator mEmailBodyGenerator;
 
         private IconRequestHandler iconRequestHandler;
 
         private AnalyticsHandler analyticsHandler;
+
+        private ConfigHandler configHandler;
 
         private NavigationIcon mNavigationIcon = NavigationIcon.STYLE_1;
         private NavigationViewHeader mNavigationViewHeader = NavigationViewHeader.NORMAL;
@@ -183,6 +191,11 @@ public abstract class CandyBarApplication extends MultiDexApplication {
 
         public Configuration setAnalyticsHandler(@NonNull AnalyticsHandler analyticsHandler) {
             this.analyticsHandler = analyticsHandler;
+            return this;
+        }
+
+        public Configuration setConfigHandler(@NonNull ConfigHandler configHandler) {
+            this.configHandler = configHandler;
             return this;
         }
 
@@ -354,6 +367,23 @@ public abstract class CandyBarApplication extends MultiDexApplication {
                 };
             }
             return analyticsHandler;
+        }
+
+        public ConfigHandler getConfigHandler() {
+            if (configHandler == null) {
+                configHandler = new ConfigHandler() {
+                    @Override
+                    public String wallpaperJson(Context context) {
+                        return context.getString(R.string.wallpaper_json);
+                    }
+
+                    @Override
+                    public String configJson(Context context) {
+                        return context.getString(R.string.config_json);
+                    }
+                };
+            }
+            return configHandler;
         }
 
         public List<DonationLink> getDonationLinks() {
