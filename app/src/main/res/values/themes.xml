@@ -4,6 +4,8 @@
         <item name="cb_colorPrimary">#35C164</item>
         <item name="cb_colorPrimaryDark">#4CAF50</item>
         <item name="cb_colorAccent">#1BB96F</item>
+        <!-- Fallback status bar color for Android 9 and below -->
+        <item name="android:statusBarColor">?attr/cb_colorPrimary</item>
 
         <!-- Navigation Bar -->
         <item name="cb_navigationBar">#1A73E9</item>
