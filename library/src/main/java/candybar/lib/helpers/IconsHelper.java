@@ -2,6 +2,7 @@ package candybar.lib.helpers;
 
 import static com.danimahardhika.android.helpers.core.FileHelper.getUriFromFile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,14 +25,18 @@ import com.bumptech.glide.request.target.Target;
 import com.danimahardhika.android.helpers.core.utils.LogUtil;
 
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import candybar.lib.R;
@@ -69,6 +74,7 @@ public class IconsHelper {
                 List<Icon> icons = section.getIcons();
 
                 computeTitles(context, icons);
+                computeTags(context, icons);
 
                 if (sortIcons && context.getResources().getBoolean(R.bool.enable_icons_sort)) {
                     Collections.sort(icons, Icon.TitleComparator);
@@ -190,6 +196,53 @@ public class IconsHelper {
             capitalizeWord.append(first.toUpperCase()).append(afterfirst).append(" ");
         }
         return capitalizeWord.toString().trim();
+    }
+
+    public static void computeTags(@NonNull Context context, List<Icon> icons) {
+        if (!context.getResources().getBoolean(R.bool.enable_icons_tag_search))
+            return; // Tagging not enabled, nothing to do
+
+        String tagResourceFileName = context.getResources().getString(R.string.icon_tags_xml);
+        @SuppressLint("DiscouragedApi") int tagResourceId = context.getResources().getIdentifier(tagResourceFileName, "xml", context.getPackageName());
+        if (tagResourceId == 0)
+            return; // Resource doesn't exist, nothing to do
+
+        Map<String, Set<String>> tags = new HashMap<>();
+
+        try {
+            XmlResourceParser parser = context.getResources().getXml(tagResourceId);
+            int eventType = parser.getEventType();
+            String currentDrawable = null;
+            Set<String> currentTags = Collections.emptySet();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    String name = parser.getName();
+                    if ("icon".equals(name)) {
+                        currentDrawable = context.getResources().getResourceEntryName(parser.getAttributeResourceValue(null, "drawable", 0));
+                        currentTags = new LinkedHashSet<>();
+                    } else if ("tag".equals(name) && currentDrawable != null) {
+                        String value = context.getResources().getString(parser.getAttributeResourceValue(null, "value", 0));
+                        if (!value.isEmpty()) {
+                            currentTags.add(value);
+                        }
+                    }
+                } else if (eventType == XmlPullParser.END_TAG && "icon".equals(parser.getName())) {
+                    if (currentDrawable != null && !currentTags.isEmpty()) {
+                        tags.put(currentDrawable, currentTags);
+                    }
+                    currentDrawable = null;
+                    currentTags = Collections.emptySet();
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException | IOException ignored) {}
+
+        for (Icon icon : icons) {
+            Set<String> iconTags = tags.get(icon.getDrawableName());
+            if (iconTags != null && !iconTags.isEmpty()) {
+                icon.setTags(iconTags);
+            }
+        }
     }
 
     public static void selectIcon(@NonNull Context context, int action, Icon icon) {
