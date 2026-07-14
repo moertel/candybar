@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.XmlResourceParser;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -87,7 +88,63 @@ public class IconsHelper {
                 CandyBarMainActivity.sSections.add(new Icon(
                         CandyBarApplication.getConfiguration().getTabAllIconsTitle(), icons));
             }
+
+            // Index the fully loaded and computed sections into AppSearch in the background
+            AppSearchHelper.getInstance(context).indexIconsAsync(CandyBarMainActivity.sSections);
         }
+    }
+
+    private record CursorIcon(Icon icon, String category) { }
+
+    private static List<CursorIcon> parseIconsCursor(Cursor cursor) {
+        List<CursorIcon> list = new ArrayList<>();
+        if (cursor == null) return list;
+        try (cursor) {
+            int drawableNameIndex = cursor.getColumnIndexOrThrow("drawable_name");
+            int titleIndex = cursor.getColumnIndexOrThrow("title");
+            int customNameIndex = cursor.getColumnIndexOrThrow("custom_name");
+            int resIdIndex = cursor.getColumnIndexOrThrow("res_id");
+            int categoryIndex = cursor.getColumnIndexOrThrow("category");
+            int tagsIndex = cursor.getColumnIndexOrThrow("tags");
+
+            while (cursor.moveToNext()) {
+                String drawableName = cursor.getString(drawableNameIndex);
+                String title = cursor.getString(titleIndex);
+                String customName = cursor.getString(customNameIndex);
+                int resId = cursor.getInt(resIdIndex);
+                String category = cursor.getString(categoryIndex);
+                String tagsString = cursor.getString(tagsIndex);
+
+                Icon icon = new Icon(drawableName, customName, resId);
+                icon.setTitle(title);
+                if (tagsString != null && !tagsString.isEmpty()) {
+                    Set<String> tagsSet = new LinkedHashSet<>();
+                    Collections.addAll(tagsSet, tagsString.split(","));
+                    icon.setTags(tagsSet);
+                }
+                list.add(new CursorIcon(icon, category));
+            }
+        }
+        return list;
+    }
+
+    @NonNull
+    public static List<Icon> search(@NonNull Context context, @NonNull String query, boolean substring) {
+        Uri uri = Uri.parse("content://" + context.getPackageName() + ".icons/icons")
+                .buildUpon()
+                .appendQueryParameter("query", query)
+                .appendQueryParameter("substring", String.valueOf(substring))
+                .build();
+
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        List<Icon> icons = new ArrayList<>();
+        if (cursor != null) {
+            List<CursorIcon> cursorIcons = parseIconsCursor(cursor);
+            for (CursorIcon item : cursorIcons) {
+                icons.add(item.icon);
+            }
+        }
+        return icons;
     }
 
     @NonNull
@@ -135,7 +192,7 @@ public class IconsHelper {
         return sections;
     }
 
-    public static List<Icon> getTabAllIcons() {
+    private static List<Icon> getTabAllIcons() {
         Set<Icon> iconSet = new HashSet<>();
         String[] categories = CandyBarApplication.getConfiguration().getCategoryForTabAllIcons();
 
@@ -158,7 +215,7 @@ public class IconsHelper {
         return icons;
     }
 
-    public static void computeTitles(@NonNull Context context, List<Icon> icons) {
+    private static void computeTitles(@NonNull Context context, List<Icon> icons) {
         final boolean iconReplacer = context.getResources().getBoolean(R.bool.enable_icon_name_replacer);
         for (Icon icon : icons) {
             if (icon.getTitle() != null) {
@@ -173,7 +230,7 @@ public class IconsHelper {
         }
     }
 
-    public static String replaceName(@NonNull Context context, boolean iconReplacer, String name) {
+    private static String replaceName(@NonNull Context context, boolean iconReplacer, String name) {
         if (iconReplacer) {
             String[] replacer = context.getResources().getStringArray(R.array.icon_name_replacer);
             for (String replace : replacer) {
@@ -187,7 +244,7 @@ public class IconsHelper {
         return capitalizeWord(name);
     }
 
-    public static String capitalizeWord(String str) {
+    private static String capitalizeWord(String str) {
         String[] words = str.split("\\s");
         StringBuilder capitalizeWord = new StringBuilder();
         for (String w : words) {
@@ -198,7 +255,7 @@ public class IconsHelper {
         return capitalizeWord.toString().trim();
     }
 
-    public static void computeTags(@NonNull Context context, List<Icon> icons) {
+    private static void computeTags(@NonNull Context context, List<Icon> icons) {
         if (!context.getResources().getBoolean(R.bool.enable_icons_tag_search))
             return; // Tagging not enabled, nothing to do
 

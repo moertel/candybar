@@ -394,32 +394,8 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
         mIcons = new ArrayList<>();
         if (query.isEmpty()) mIcons.addAll(mIconsAll);
         else {
-            for (int i = 0; i < mIconsAll.size(); i++) {
-                // Classic search by title
-                Icon icon = mIconsAll.get(i);
-                String name = icon.getTitle();
-                name = name.toLowerCase(Locale.ENGLISH);
-                if (name.contains(query)) {
-                    mIcons.add(icon);
-                    continue; // Match found, nothing else to do
-                }
-                if (icon.getTags() == null)
-                    continue; // No tags, no need to compute
-
-                for (String tag : icon.getTags()) {
-                    if (query.length() == 1) { // Only 1 letter, use exact match!
-                        if (tag.equalsIgnoreCase(query)) {
-                            mIcons.add(icon);
-                            break;
-                        }
-                    } else { // Query with 2 or more characters, use substring match!
-                        if (tag.contains(query)) {
-                            mIcons.add(icon);
-                            break;
-                        }
-                    }
-                }
-            }
+            boolean substring = mContext.getResources().getBoolean(R.bool.enable_icons_substring_search);
+            mIcons = IconsHelper.search(mContext, query, substring);
         }
 
         if (mIcons.isEmpty()) {
