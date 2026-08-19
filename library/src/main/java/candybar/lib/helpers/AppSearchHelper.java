@@ -21,9 +21,11 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -114,7 +116,7 @@ public class AppSearchHelper {
     private void setupSchema(AppSearchSession session) throws Exception {
         AppSearchSchema iconSchema = new AppSearchSchema.Builder("Icon")
                 .addProperty(new StringPropertyConfig.Builder("drawableName")
-                        .setCardinality(PropertyConfig.CARDINALITY_OPTIONAL)
+                        .setCardinality(PropertyConfig.CARDINALITY_REQUIRED)
                         .build())
                 .addProperty(new StringPropertyConfig.Builder("title")
                         .setCardinality(PropertyConfig.CARDINALITY_OPTIONAL)
@@ -127,10 +129,8 @@ public class AppSearchHelper {
                 .addProperty(new LongPropertyConfig.Builder("resId")
                         .setCardinality(PropertyConfig.CARDINALITY_REQUIRED)
                         .build())
-                .addProperty(new StringPropertyConfig.Builder("category")
-                        .setCardinality(PropertyConfig.CARDINALITY_OPTIONAL)
-                        .setIndexingType(StringPropertyConfig.INDEXING_TYPE_EXACT_TERMS)
-                        .setTokenizerType(StringPropertyConfig.TOKENIZER_TYPE_PLAIN)
+                .addProperty(new StringPropertyConfig.Builder("categories")
+                        .setCardinality(PropertyConfig.CARDINALITY_REPEATED)
                         .build())
                 .addProperty(new StringPropertyConfig.Builder("tags")
                         .setCardinality(PropertyConfig.CARDINALITY_REPEATED)
@@ -141,7 +141,7 @@ public class AppSearchHelper {
 
         AppSearchSchema categorySchema = new AppSearchSchema.Builder("Category")
                 .addProperty(new StringPropertyConfig.Builder("categoryName")
-                        .setCardinality(PropertyConfig.CARDINALITY_OPTIONAL)
+                        .setCardinality(PropertyConfig.CARDINALITY_REQUIRED)
                         .build())
                 .addProperty(new LongPropertyConfig.Builder("order")
                         .setCardinality(PropertyConfig.CARDINALITY_REQUIRED)
@@ -171,8 +171,9 @@ public class AppSearchHelper {
             catDocuments.add(catDoc);
         }
 
-        List<GenericDocument> documents = new ArrayList<>();
-        Set<String> indexedCombinations = new LinkedHashSet<>();
+        Map<String, GenericDocument.Builder<?>> docBuilders = new LinkedHashMap<>();
+        Map<String, Set<String>> itemCategories = new LinkedHashMap<>();
+
         for (Icon section : sections) {
             String category = section.getTitle();
             for (Icon icon : section.getIcons()) {
@@ -181,20 +182,37 @@ public class AppSearchHelper {
 
                 String title = icon.getTitle() != null ? icon.getTitle() : "";
                 String combinationKey = drawableName + "|" + title;
-                if (!indexedCombinations.add(combinationKey)) continue;
 
-                String docId = combinationKey;
+                Set<String> catSet = itemCategories.get(combinationKey);
+                if (catSet == null) {
+                    catSet = new LinkedHashSet<>();
+                    itemCategories.put(combinationKey, catSet);
+                }
+                if (category != null && !category.isEmpty()) {
+                    catSet.add(category);
+                }
 
-                GenericDocument.Builder<?> docBuilder = new GenericDocument.Builder<>("icons", docId, "Icon")
-                        .setPropertyString("drawableName", drawableName)
-                        .setPropertyString("title", title)
-                        .setPropertyString("customName", icon.getCustomName() != null ? icon.getCustomName() : "")
-                        .setPropertyLong("resId", icon.getRes())
-                        .setPropertyString("category", category != null ? category : "")
-                        .setPropertyString("tags", icon.getTags().toArray(new String[0]));
-
-                documents.add(docBuilder.build());
+                if (!docBuilders.containsKey(combinationKey)) {
+                    GenericDocument.Builder<?> docBuilder = new GenericDocument.Builder<>("icons", combinationKey, "Icon")
+                            .setPropertyString("drawableName", drawableName)
+                            .setPropertyString("title", title)
+                            .setPropertyString("customName", icon.getCustomName() != null ? icon.getCustomName() : "")
+                            .setPropertyLong("resId", icon.getRes())
+                            .setPropertyString("tags", icon.getTags().toArray(new String[0]));
+                    docBuilders.put(combinationKey, docBuilder);
+                }
             }
+        }
+
+        List<GenericDocument> documents = new ArrayList<>();
+        for (Map.Entry<String, GenericDocument.Builder<?>> entry : docBuilders.entrySet()) {
+            String key = entry.getKey();
+            GenericDocument.Builder<?> builder = entry.getValue();
+            Set<String> catSet = itemCategories.get(key);
+            if (catSet != null && !catSet.isEmpty()) {
+                builder.setPropertyString("categories", catSet.toArray(new String[0]));
+            }
+            documents.add(builder.build());
         }
 
         PutDocumentsRequest catPutRequest = new PutDocumentsRequest.Builder()

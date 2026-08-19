@@ -63,6 +63,7 @@ public class IconsProvider extends ContentProvider {
 
         if (match == ICONS) {
             String queryText = uri.getQueryParameter("query");
+            String categoryParam = uri.getQueryParameter("category");
             boolean substring = Boolean.parseBoolean(uri.getQueryParameter("substring"));
 
             String[] cols = projection != null ? projection : new String[] {
@@ -118,6 +119,23 @@ public class IconsProvider extends ContentProvider {
                     }
                 }
 
+                if (categoryParam != null && !categoryParam.trim().isEmpty()) {
+                    String targetCategory = categoryParam.trim();
+                    List<GenericDocument> filteredByCat = new ArrayList<>();
+                    for (GenericDocument doc : matchedDocs) {
+                        String[] catArray = doc.getPropertyStringArray("categories");
+                        if (catArray != null) {
+                            for (String c : catArray) {
+                                if (targetCategory.equalsIgnoreCase(c)) {
+                                    filteredByCat.add(doc);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    matchedDocs = filteredByCat;
+                }
+
                 if (queryText != null && !queryText.trim().isEmpty()) {
                     String cleanQuery = queryText.toLowerCase(Locale.getDefault()).trim();
                     Collections.sort(matchedDocs, (doc1, doc2) -> {
@@ -153,8 +171,9 @@ public class IconsProvider extends ContentProvider {
                             row.add(doc.getPropertyString("customName"));
                         } else if ("res_id".equals(col) || "_id".equals(col)) {
                             row.add((int) doc.getPropertyLong("resId"));
-                        } else if ("category".equals(col)) {
-                            row.add(doc.getPropertyString("category"));
+                        } else if ("category".equals(col) || "categories".equals(col)) {
+                            String[] cats = doc.getPropertyStringArray("categories");
+                            row.add(cats != null ? TextUtils.join(",", cats) : "");
                         } else if ("tags".equals(col)) {
                             String[] tags = doc.getPropertyStringArray("tags");
                             row.add(tags != null ? TextUtils.join(",", tags) : "");
