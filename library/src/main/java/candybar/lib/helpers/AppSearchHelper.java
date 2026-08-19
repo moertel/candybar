@@ -219,14 +219,14 @@ public class AppSearchHelper {
 
         if (substring && queryText != null && !queryText.trim().isEmpty()) {
             List<Icon> allIcons = queryIcons("", false);
-            String lowerQuery = queryText.toLowerCase(Locale.ENGLISH).trim();
+            String lowerQuery = queryText.toLowerCase(Locale.getDefault()).trim();
             for (Icon icon : allIcons) {
                 boolean match = false;
-                if (icon.getTitle() != null && icon.getTitle().toLowerCase(Locale.ENGLISH).contains(lowerQuery)) {
+                if (icon.getTitle() != null && icon.getTitle().toLowerCase(Locale.getDefault()).contains(lowerQuery)) {
                     match = true;
                 } else {
                     for (String tag : icon.getTags()) {
-                        if (tag.toLowerCase(Locale.ENGLISH).contains(lowerQuery)) {
+                        if (tag.toLowerCase(Locale.getDefault()).contains(lowerQuery)) {
                             match = true;
                             break;
                         }
@@ -268,10 +268,10 @@ public class AppSearchHelper {
         }
 
         if (queryText != null && !queryText.trim().isEmpty()) {
-            String cleanQuery = queryText.trim().toLowerCase(Locale.ENGLISH);
+            String cleanQuery = queryText.trim().toLowerCase(Locale.getDefault());
             Collections.sort(results, (icon1, icon2) -> {
-                boolean exact1 = icon1.getTitle() != null && icon1.getTitle().toLowerCase(Locale.ENGLISH).equals(cleanQuery);
-                boolean exact2 = icon2.getTitle() != null && icon2.getTitle().toLowerCase(Locale.ENGLISH).equals(cleanQuery);
+                boolean exact1 = icon1.getTitle() != null && icon1.getTitle().toLowerCase(Locale.getDefault()).equals(cleanQuery);
+                boolean exact2 = icon2.getTitle() != null && icon2.getTitle().toLowerCase(Locale.getDefault()).equals(cleanQuery);
                 if (exact1 && !exact2) return -1;
                 if (!exact1 && exact2) return 1;
 

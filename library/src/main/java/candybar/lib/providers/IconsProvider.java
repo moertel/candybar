@@ -92,17 +92,17 @@ public class IconsProvider extends ContentProvider {
 
                 List<GenericDocument> matchedDocs = new ArrayList<>();
                 if (substring && queryText != null && !queryText.trim().isEmpty()) {
-                    String cleanQuery = queryText.toLowerCase(Locale.ENGLISH).trim();
+                    String cleanQuery = queryText.toLowerCase(Locale.getDefault()).trim();
                     for (SearchResult row : allResults) {
                         GenericDocument doc = row.getGenericDocument();
                         String title = doc.getPropertyString("title");
                         String[] tags = doc.getPropertyStringArray("tags");
                         boolean matchFound = false;
-                        if (title != null && title.toLowerCase(Locale.ENGLISH).contains(cleanQuery)) {
+                        if (title != null && title.toLowerCase(Locale.getDefault()).contains(cleanQuery)) {
                             matchFound = true;
                         } else if (tags != null) {
                             for (String tag : tags) {
-                                if (tag.toLowerCase(Locale.ENGLISH).contains(cleanQuery)) {
+                                if (tag.toLowerCase(Locale.getDefault()).contains(cleanQuery)) {
                                     matchFound = true;
                                     break;
                                 }
@@ -119,12 +119,12 @@ public class IconsProvider extends ContentProvider {
                 }
 
                 if (queryText != null && !queryText.trim().isEmpty()) {
-                    String cleanQuery = queryText.toLowerCase(Locale.ENGLISH).trim();
+                    String cleanQuery = queryText.toLowerCase(Locale.getDefault()).trim();
                     Collections.sort(matchedDocs, (doc1, doc2) -> {
                         String t1 = doc1.getPropertyString("title");
                         String t2 = doc2.getPropertyString("title");
-                        boolean exact1 = t1 != null && t1.toLowerCase(Locale.ENGLISH).equals(cleanQuery);
-                        boolean exact2 = t2 != null && t2.toLowerCase(Locale.ENGLISH).equals(cleanQuery);
+                        boolean exact1 = t1 != null && t1.toLowerCase(Locale.getDefault()).equals(cleanQuery);
+                        boolean exact2 = t2 != null && t2.toLowerCase(Locale.getDefault()).equals(cleanQuery);
                         if (exact1 && !exact2) return -1;
                         if (!exact1 && exact2) return 1;
 

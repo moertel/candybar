@@ -389,7 +389,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
             mIconsAll = mIcons;
         }
 
-        String query = string.toLowerCase(Locale.ENGLISH).trim();
+        String query = string.toLowerCase(Locale.getDefault()).trim();
 
         mIcons = new ArrayList<>();
         if (query.isEmpty()) mIcons.addAll(mIconsAll);
